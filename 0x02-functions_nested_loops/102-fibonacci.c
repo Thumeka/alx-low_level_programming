@@ -18,7 +18,7 @@ int main(void)
 
 	while (count <= 50)
 	{
-		if (count == 49)
+		if (count == 50)
 		{
 			printf("%lu, ", next);
 		}
