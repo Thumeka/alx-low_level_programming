@@ -10,8 +10,8 @@
 char *leet(char *s)
 {
 	int k, j;
-	char b[] = "4433007711";
-	char c[] = "aAeEoOtTlL";
+	char b[] = "aAeEoOtTlL";
+	char c[] = "4433007711";
 
 	for (k = 0; *(s + k); k++)
 	{
