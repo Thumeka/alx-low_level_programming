@@ -7,7 +7,7 @@
  * @r: buffer
  * @size_r: size
  *
- * Return: address
+ * Return: address of r or 0.
  */
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
