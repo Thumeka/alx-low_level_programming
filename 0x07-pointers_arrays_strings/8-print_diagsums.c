@@ -12,18 +12,18 @@
 
 void print_diagsums(int *a, int size)
 {
-	int k, sum1 = 0, sum2 = 0;
+	int d, e, f, g = 0, h = 0;
 
-	for (k = 0; k < size; k++)
+	for (d = 0; d < size; d++)
 	{
-		sum1 += *(a + k * size + k);
+		f = (d * size) + d;
+		g += *(a + f);
 	}
 
-	for (k = 0; k < size; k++)
+	for (e = 0; e < size; e++)
 	{
-		sum2 += *(a + k * size + (size - k - 1));
+		f = (e * size) + (size - 1 - e);
+		h += *(a + f);
 	}
-
-	printf("Sum of main diagonal: %d\n", sum1);
-	printf("Sum of secondary diagonal: %d\n", sum2);
+	printf("%i, %i\n", g, h);
 }
