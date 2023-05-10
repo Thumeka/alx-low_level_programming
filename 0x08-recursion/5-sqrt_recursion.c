@@ -7,7 +7,7 @@
  * Return: if no square root -1.
  */
 
-int helper( int n, int t)
+int helper(int n, int t)
 {
 	if  (n * n == t)
 	{
