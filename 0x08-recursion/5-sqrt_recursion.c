@@ -1,23 +1,36 @@
 #include "main.h"
 
 /**
- * _pow_recursion -  returns the value of x raised to the power of y.
- * @y: string 
- *
- * Return: 0 or -1.
+ * helper - to solve sqrt recursion
+ * @n: number
+ * @t: integer
+ * Return: if no square root -1.
  */
 
-int _pow_recursion(int x, int y)
+int helper( int n, int t)
 {
-	if (y < 0)
+	if  (n * n == t)
+	{
+		return (n);
+	}
+
+	else if (n * n > t)
 	{
 		return (-1);
 	}
 
-	if (y == 0)
-	{
-		return (1);
-	}
-
-	return (x * _pow_recursion(x - 1);
+	return (helper(n + 1, t));
 }
+
+/**
+ * _sqrt_recursion -  returns the natural square root of a number.
+ * @n: number square
+ *
+ * Return: if no square root -1.
+ */
+
+int _sqrt_recursion(int n)
+{
+	return (helper(1, n));
+}
+
