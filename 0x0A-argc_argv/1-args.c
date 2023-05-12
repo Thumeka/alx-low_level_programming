@@ -1,7 +1,8 @@
+#include "main.h"
 #include <stdio.h>
 
 /**
- * main - prints its name with a new line.
+ * main - prints number passed into it.
  * @argc: count
  * @argv: vector
  *
