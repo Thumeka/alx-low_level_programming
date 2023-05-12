@@ -22,5 +22,5 @@ int main(int argc __attribute__((unused)), char *argv[])
 		printf("%d\n", atoi(argv[2]) * atoi(argv[3]));
 	}
 
-	return (1);
+	return (0);
 }
