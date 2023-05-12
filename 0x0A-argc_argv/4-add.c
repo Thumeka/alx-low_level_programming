@@ -1,7 +1,6 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 /**
  * main - that adds 2 positive numbers followed by a new line,
@@ -19,7 +18,7 @@ int main(int argc, char *argv[])
 	int add, t, k = 0;
 	char *p;
 
-	if (argc > 1)
+	if (argc < 2)
 	{
 		printf("0\n");
 		return (0);
