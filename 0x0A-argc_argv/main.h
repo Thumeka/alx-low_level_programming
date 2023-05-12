@@ -4,8 +4,5 @@
 #include <stdio.h>
 
 int _putchar(char c);
-int main(int argc __attribute__((unused)), char *argv)
-#include <stdlib.h>
-#include <time.h>
 
 #endif /* MAIN_H */
