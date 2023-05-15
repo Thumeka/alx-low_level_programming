@@ -29,10 +29,10 @@ char *str_concat(char *s1, char *s2)
 
 	arr = malloc((a * sizeof(*s1)) + (b * sizeof(*s2)) + 1);
 
-	if (arr == NULL)
+	if (arr == 0)
 		return (NULL);
 
-	for (f = 0, g = 0; f < (a + b + 1); f++)
+	for (f = 0, g = 0; f < a + b; f++)
 	{
 		if (f < a)
 			arr[f] = s1[f];
