@@ -15,31 +15,41 @@ char *str_concat(char *s1, char *s2)
 	char *arr;
 	int a, b, f, g;
 
-	if (s1 == 0)
-		s1 = " ";
-
-	if (s2 == 0)
-		s2 = " ";
-
-	for (b = 0; s1[b] != '\0'; b++)
-		;
-
-	for (a = 0; s2[a] != '\0'; a++)
-		;
-	a++;
-
-	arr = malloc(a * sizeof(*s1) + b * sizeof(*s2));
-
-	if (arr == 0)
-		return (NULL);
-
-	for (f = 0, g = 0; f < a + b; f++)
+	if (s1 == NULL)
 	{
-		if (f < a)
-			arr[f] = s1[f];
-		else
-			arr[f] = s2[g++];
+		s1 = " ";
 	}
+
+	if (s2 == NULL)
+	{
+		s2 = " ";
+	}
+
+	while (s1[a] != '\0')
+	{
+		a++;
+	}
+
+	while (s1[b] != '\0')
+	{
+		b++;
+	}
+
+	arr = malloc((a + b + 1) * sizeof(char));
+
+	if (arr == NULL)
+	{
+		free(arr);
+		return (NULL);
+	}
+
+	for (f = 0; f < a; f++)
+		arr[f] = s1[f];
+
+	g = b;
+
+	for (b = 0; b <= g; f++, b++)
+		arr[f] = s2[b];
 
 	return (arr);
 }
