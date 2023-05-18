@@ -1,6 +1,5 @@
 #include "main.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
  * string_nconcat -  concatenates two strings.
@@ -14,46 +13,42 @@
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
 	char *arr;
-	int k, p, len1;
+	unsigned int k = 0, p = 0, len1 = 0, len2 =0;
 
 	if (s1 == NULL)
 		s1 = "";
 	if (s2 == NULL)
 		s2 = "";
 
-	len1 = (unsigned int)_strlen(s1);
+	while (s1[k])
+		k++;
+	while (s2[p])
+		p++;
 
-	arr = malloc((len1 + n + 1) * sizeof(char));
+	if (n >= p)
+		len1 = k + p;
+	else
+		len1 = k + n;
+
+	arr = malloc(sizeof(char) * len1 + 1);
 
 	if (arr == NULL)
 		return (NULL);
 
-	for (k = 0, p = 0; k < (len1 + n); k++)
+	p = 0;
+	while (len2 < len1)
 	{
-		if (k < len1)
-			arr[k] = s1[k];
-		else
-			arr[k] = s2[p++];
+		if (len2 <= k)
+			arr[len2] = s1[len2];
+		if (len2 >= k)
+		{
+			arr[len2] = s2[p];
+			p++;
+		}
+
+		len2++;
 	}
 
-	arr[k] = '\0';
-
+	arr[len2] = '\0';
 	return (arr);
-}
-
-/**
- * _strlen - string length.
- * @s: string
- *
- * Return: length
- */
-
-int _strlen(char *s)
-{
-	int i;
-
-	for (i = 0; s[i] != '\0'; i++)
-		;
-
-	return (i);
 }
