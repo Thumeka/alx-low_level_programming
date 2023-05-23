@@ -1,5 +1,53 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "dog.h"
+
+/**
+ * _strlen - function that returns the length of a string.
+ * @s: string
+ *
+ * Return: length
+ */
+
+int _strlen(char *s)
+{
+	int j;
+
+	j = 0;
+
+	while (s[j] != '\0')
+	{
+		j++;
+	}
+	return (j);
+}
+
+/**
+ *  _strcpy - copy the string pointed by src to dest
+ *  @src: char
+ *  @dest: char
+ *
+ *  Return: 0.
+ */
+
+char *_strcpy(char *dest, char *src)
+{
+	int leng, j;
+
+	leng = 0;
+
+	while (src[leng] != '\0')
+	{
+		leng++;
+	}
+	for (j = 0; j < leng; j++)
+	{
+		dest[j] = src[j];
+	}
+	dest[j] = '\0';
+
+	return (dest);
+}
 
 /**
  * new_dog - creates a new dog.
@@ -9,47 +57,35 @@
  *
  * Return: new dog.
  */
-
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	unsigned int n = 0, o = 0, c = 0;
+	int ln1, ln2;
 	dog_t *bobby;
 
-	if (name == NULL || owner == NULL)
-		return (NULL);
+	ln1 = _strlen(name);
+	ln2 = _strlen(owner);
 
 	bobby = malloc(sizeof(dog_t));
-
 	if (bobby == NULL)
 		return (NULL);
 
-	n = 0;
-	while (name[n] != '\0')
-		n++;
-
-	bobby->name = malloc((n + 1) * sizeof(char));
+	bobby->name = malloc(sizeof(char) * (ln1 + 1));
 	if (bobby->name == NULL)
 	{
 		free(bobby);
 		return (NULL);
 	}
-
-	o = 0;
-	while (owner[o] != '\0')
-		o++;
-
-	bobby->owner = malloc(o * sizeof(char));
-
+	bobby->owner = malloc(sizeof(char) * (ln2 + 1));
 	if (bobby->owner == NULL)
 	{
-		free(bobby->name);
 		free(bobby);
+		free(bobby->name);
 		return (NULL);
 	}
-	for (c = 0; c < n; c++)
-		bobby->name[c] = name[c];
-	for (c = 0; c < o; c++)
-		bobby->owner[c] = owner[c];
+
+	_strcpy(bobby->name, name);
+	_strcpy(bobby->owner, owner);
 	bobby->age = age;
+
 	return (bobby);
 }
