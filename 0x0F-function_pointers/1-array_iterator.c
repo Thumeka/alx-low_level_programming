@@ -7,15 +7,16 @@
  * @size: size of array
  * @action: pointer function
  * @array: execute
+ *
+ * Return: void
  */
 
 void array_iterator(int *array, size_t size, void (*action)(int))
 {
-	unsigned int j = 0;
+	size_t j = 0;
 
-	while (j < size)
+	for (j = 0; j < size; j++)
 	{
 		action(array[j]);
-		j++;
 	}
 }
