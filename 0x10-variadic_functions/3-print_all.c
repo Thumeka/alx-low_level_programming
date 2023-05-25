@@ -12,41 +12,40 @@ void print_all(const char * const format, ...)
 {
 	int j = 0;
 	char *s;
-	const char *str = format;
+	char *str = "";
 
 	va_list form;
 
 	va_start(form, format);
-
-	while (str[j] != '\0')
+	if (format != NULL)
 	{
-		switch (str[j])
+		while (format[j])
 		{
-			case 'c':
-				printf("%c", va_arg(form, int));
-				break;
-			case 'i':
-				printf("%i", va_arg(form, int));
-				break;
-
-			case 'f':
-				printf("%f", va_arg(form, double));
-				break;
-
-			case 's':
-				s = va_arg(form, char*);
-				if (s == NULL)
-					s = "(nil)";
-				printf("%s", s);
-				break;
-
-			default:
-
-				break;
+			switch (format[j])
+			{
+				case 'c':
+					printf("%s%c", str, va_arg(form, int));
+					break;
+				case 'i':
+					printf("%s%i", str, va_arg(form, int));
+					break;
+				case 'f':
+					printf("%s%f", str, va_arg(form, double));
+					break;
+				case 's':
+					s = va_arg(form, char*);
+					if (s == NULL)
+						s = "(nil)";
+					printf("%s%s", str, s);
+					break;
+				default:
+					j++;
+					continue;
+			}
+			str = ", ";
+			j++;
 		}
-		if (str[j + 1] != '\0' && str[j] == 0)
-			printf(", ");
-		j++;
+
 	}
 	printf("\n");
 	va_end(form);
