@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 #include <stdio.h>
 #include "lists.h"
@@ -24,6 +25,12 @@ list_t *add_node(list_t **head, const char *str)
 
 	n_node->str = strdup(str);
 
+	if (n_node->str == NULL)
+	{
+		free(n_node);
+		return (NULL);
+	}
+
 	n_node->len = _strlen(str);
 	n_node->next = *head;
 	*head = n_node;
@@ -33,7 +40,7 @@ list_t *add_node(list_t **head, const char *str)
 
 /**
  * _strlen - function that returns the length of a string.
- * @s: string
+ * @str: string
  *
  * Return: length of string
  */
