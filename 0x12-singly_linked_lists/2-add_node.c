@@ -14,29 +14,39 @@
 list_t *add_node(list_t **head, const char *str)
 {
 	list_t *n_node;
-	unsigned int len = 0;
-
-	if (str == NULL)
-	{
-		return (NULL);
-	}
-
-	while (str[len])
-	{
-		len++;
-	}
 
 	n_node = malloc(sizeof(list_t));
 
-	if (n_node != NULL)
+	if (n_node == NULL)
 	{
 		return (NULL);
 	}
 
 	n_node->str = strdup(str);
-	n_node->len = len;
+
+	n_node->len = _strlen(str);
 	n_node->next = *head;
 	*head = n_node;
 
 	return (n_node);
+}
+
+/**
+ * _strlen - function that returns the length of a string.
+ * @s: string
+ *
+ * Return: length of string
+ */
+
+int _strlen(const char *str)
+{
+	int j;
+
+	j = 0;
+
+	while (str[j] != '\0')
+	{
+		j++;
+	}
+	return (j);
 }
