@@ -47,7 +47,7 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 	}
 	if (idx == 0)
 	{
-		fresh_n = new_node(n);
+		fresh_n = new_node(head, n);
 		if (fresh_n == NULL)
 		{
 			return (NULL);
@@ -64,7 +64,7 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 		j++;
 	}
 
-	fresh_n = new_node(n);
+	fresh_n = new_node(head, n);
 	if (fresh_n == NULL)
 	{
 		return (NULL);
