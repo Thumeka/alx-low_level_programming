@@ -10,7 +10,7 @@
  * Return: NULL or address
  */
 
-listint_t *new_node(int n)
+listint_t *new_node(listint_t **head, const int n)
 {
 	listint_t *fresh_n;
 
@@ -20,9 +20,10 @@ listint_t *new_node(int n)
 		return (NULL);
 	}
 	fresh_n->n = n;
-	fresh_n->next = NULL;
+	fresh_n->next = *head;
+	*head = fresh_n;
 
-	return (NULL);
+	return (fresh_n);
 }
 
 /**
