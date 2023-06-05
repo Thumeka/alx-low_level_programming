@@ -6,7 +6,7 @@
 /**
  * add_nodeint_end - adds a new node at the end of a listint_t list.
  * @head: pointer
- * @n: value 1
+ * @n: value int
  *
  * Return: address or NULL
  */
@@ -31,8 +31,10 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
 	{
 		*new = **head;
 		while (new->next != NULL)
+		{
 			new = new->next;
+		}
 		new->next = fresh_n;
 	}
-	return (fresh_n);
+	return (*head);
 }
