@@ -6,7 +6,7 @@
 /**
  * new_node - creates new node
  * @n: data
- *
+ * @head: pointer
  * Return: NULL or address
  */
 
@@ -37,7 +37,7 @@ listint_t *new_node(listint_t **head, const int n)
 
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	unsigned int j;
+	unsigned int j = 1;
 	listint_t *fresh_n;
 	listint_t *n_node;
 
@@ -48,30 +48,24 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 	if (idx == 0)
 	{
 		fresh_n = new_node(head, n);
-		if (fresh_n == NULL)
-		{
-			return (NULL);
-		}
-		fresh_n->next = *head;
-		*head = fresh_n;
-		return (NULL);
+		return (fresh_n);
 	}
 
-	n_node = *head;
+	fresh_n = *head;
 	while (n_node != NULL && j < idx - 1)
 	{
-		n_node = n_node->next;
+		fresh_n = fresh_n->next;
 		j++;
-	}
 
-	fresh_n = new_node(head, n);
-	if (fresh_n == NULL)
-	{
+		if (fresh_n == NULL)
+			return (NULL);
+	}
+	fresh_n = malloc(sizeof(listint_t));
+	if (n_node == NULL)
 		return (NULL);
-	}
+	n_node->n = n;
+	n_node->next = fresh_n->next;
+	fresh_n->next = n_node;
 
-	fresh_n->next = n_node->next;
-	n_node->next = fresh_n;
-
-	return (fresh_n);
+	return (n_node);
 }
