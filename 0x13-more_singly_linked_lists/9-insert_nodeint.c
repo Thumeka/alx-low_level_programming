@@ -4,13 +4,15 @@
 #include "lists.h"
 
 /**
- * new_node - creates new node
- * @n: data
+ * add_nodeint - adds a new node at the beginning
+ * of a listint_t list.
  * @head: pointer
- * Return: NULL or address
+ * @n: value 1
+ *
+ * Return: address or NULL
  */
 
-listint_t *new_node(listint_t **head, const int n)
+listint_t *add_nodeint(listint_t **head, const int n)
 {
 	listint_t *fresh_n;
 
@@ -22,7 +24,6 @@ listint_t *new_node(listint_t **head, const int n)
 	fresh_n->n = n;
 	fresh_n->next = *head;
 	*head = fresh_n;
-
 	return (fresh_n);
 }
 
@@ -52,15 +53,14 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 	}
 
 	fresh_n = *head;
-	while (n_node != NULL && j < idx - 1)
+	while (j < idx)
 	{
 		fresh_n = fresh_n->next;
-		j++;
-
 		if (fresh_n == NULL)
 			return (NULL);
+		j++;
 	}
-	fresh_n = malloc(sizeof(listint_t));
+	n_node = malloc(sizeof(listint_t));
 	if (n_node == NULL)
 		return (NULL);
 	n_node->n = n;
