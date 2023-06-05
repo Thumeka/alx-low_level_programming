@@ -3,29 +3,6 @@
 #include <stdio.h>
 #include "lists.h"
 
-/**
- * add_nodeint - adds a new node at the beginning
- * of a listint_t list.
- * @head: pointer
- * @n: value
- *
- * Return: address or NULL
- */
-
-listint_t *add_nodeint(listint_t **head, const int n)
-{
-	listint_t *n_node;
-
-	n_node = malloc(sizeof(listint_t));
-	if (n_node == NULL)
-	{
-		return (NULL);
-	}
-	n_node->n = n;
-	n_node->next = *head;
-	*head = n_node;
-	return (n_node);
-}
 
 /**
  * insert_nodeint_at_index - inserts a new node at a given position.
@@ -43,29 +20,39 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 	listint_t *n_node;
 
 	if (head == NULL)
-	{
 		return (NULL);
-	}
-	if (idx == 0)
-	{
-		fresh_n = new_node(head, n);
-		return (fresh_n);
-	}
 
 	fresh_n = *head;
-	while (j < idx)
+	for (j = 1; fresh_n && j < idx; j++)
 	{
 		fresh_n = fresh_n->next;
 		if (fresh_n == NULL)
 			return (NULL);
-		j++;
+
 	}
+
 	n_node = malloc(sizeof(listint_t));
 	if (n_node == NULL)
+	{
+		free(n_node);
 		return (NULL);
+	}
 	n_node->n = n;
-	n_node->next = fresh_n->next;
-	fresh_n->next = n_node;
 
+	if (idx == 0)
+	{
+		*head = n_node;
+		n_node->next = fresh_n;
+	}
+	else if (fresh_n->next)
+	{
+		n_node->next = fresh_n->next;
+		fresh_n->next = n_node;
+	}
+	else
+	{
+		n_node->next = NULL;
+		fresh_n->next = n_node;
+	}
 	return (n_node);
 }
