@@ -21,12 +21,11 @@ int create_file(const char *filename, char *text_content)
 	if (open_f == -1)
 		return (-1);
 
-	if (text_content)
+	if (text_content != NULL)
 	{
 		while (text_content[j])
 			j++;
 		if (write(open_f, text_content, j) != j)
-			close(open_f);
 			return (-1);
 	}
 	close(open_f);
