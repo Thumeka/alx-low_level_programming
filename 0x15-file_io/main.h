@@ -7,7 +7,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <elf.h>
+#include <string.h>
 
+void print_elf_header(const Elf64_Ehdr* header);
+void print_error(const char *msg);
 void __exit(int error, char *str, int open_f);
 int main(int argc, char *argv[]);
 ssize_t read_textfile(const char *filename, size_t letters);
