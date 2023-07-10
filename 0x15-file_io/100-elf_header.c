@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <elf.h>
+#include "main.h"
 
 int check_elf(char *e);
 void print_magic(char *e);
