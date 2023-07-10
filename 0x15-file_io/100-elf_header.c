@@ -103,7 +103,7 @@ void print_type(char *e)
 	else if (print_type == 4)
 		printf("CORE (Core file)\n");
 	else
-		printf("<unknown: %x>\n",print_type);
+		printf("<unknown: %x>\n", print_type);
 }
 
 /**
@@ -178,7 +178,7 @@ void print_class(char *e)
 * check_elf - Checks if elf file
 * @e: pointer
 *
-* Description: not an ELF file - exit code 98.
+* Return: 1 or 0
 */
 int check_elf(char *e)
 {
