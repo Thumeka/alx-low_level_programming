@@ -97,7 +97,7 @@ void print_osabi(char *e)
 
 void print_type(char *e)
 {
-	char print_type = e[16];
+	char print_type;
 
 	if (e[5] == 1)
 		print_type = e[16];
@@ -131,8 +131,8 @@ void print_entry(char *e)
 
 	printf("  Entry point address:               0x");
 
-	sys = e[4] + '0';
-	if (sys == '1')
+	sys = e[4];
+	if (sys == 1)
 	{
 		start = 26;
 		printf("80");
@@ -146,7 +146,7 @@ void print_entry(char *e)
 		if (e[7] == 6)
 			printf("00");
 	}
-	if (sys == '2')
+	if (sys == 2)
 	{
 		start = 26;
 		for (j = start; j > 23; j--)
@@ -166,19 +166,28 @@ void print_entry(char *e)
 */
 void print_class(char *e)
 {
-	char print_class = e[4] + '0';
+	char print_class = e[4];
 
-	if (print_class == '0')
+	if (print_class == 0)
+	{
+		fprintf(stderr, "Error: Not an ELF file\n");
 		exit(98);
+	}
 
 	printf("ELF Header:\n");
 	print_magic(e);
 
-	if (print_class == '1')
+	if (print_class == 1)
 		printf("  Class:                             ELF32\n");
 
-	if (print_class == '2')
+	else if (print_class == 2)
 		printf("  Class:                             ELF64\n");
+	else
+	{
+		fprintf(stderr, "Error: Not an ELF file\n");
+		exit(98);
+	}
+
 	print_data(e);
 	print_version(e);
 	print_osabi(e);
@@ -217,7 +226,7 @@ int check_elf(char *e)
 
 int main(int argc, char *argv[])
 {
-	int fdiscript, r_read;
+	int fd, r_read;
 	char p[27];
 
 	if (argc != 2)
@@ -225,14 +234,14 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
 		exit(98);
 	}
-	fdiscript = open(argv[1], O_RDONLY);
-	if (fdiscript < 0)
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
 	{
 		dprintf(STDERR_FILENO, "Err: file can not be open\n");
 		exit(98);
 	}
-	lseek(fdiscript, 0, SEEK_SET);
-	r_read = read(fdiscript, p, 27);
+	lseek(fd, 0, SEEK_SET);
+	r_read = read(fd, p, 27);
 
 	if (r_read == -1)
 	{
@@ -245,6 +254,6 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 	print_class(p);
-	close(fdiscript);
+	close(fd);
 	return (0);
 }
