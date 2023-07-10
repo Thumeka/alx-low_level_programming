@@ -5,16 +5,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <elf.h>
-#include "main.h"
-
-int check_elf(char *e);
-void print_magic(char *e);
-void print_class(char *e);
-void print_data(char *e);
-void print_version(char *e);
-void print_osabi(char *e);
-void print_type(char *e);
-void print_entry(char *e);
 
 /**
 * print_magic - Prints the magic numbers
