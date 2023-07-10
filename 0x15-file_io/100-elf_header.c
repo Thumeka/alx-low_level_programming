@@ -36,9 +36,12 @@ void print_data(char *e)
 	printf("  Data:                              2's complement");
 	if (print_data == 1)
 		printf(", little endian\n");
-	if (print_data == 2)
-		printf(", big edian\n");
+	else if (print_data == 2)
+		printf(", big endian\n");
+	else
+		printf("\n");
 }
+
 /**
 * print_version - Prints the version
 * @e: A pointer
