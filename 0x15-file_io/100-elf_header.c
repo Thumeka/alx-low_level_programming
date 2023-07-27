@@ -114,8 +114,6 @@ void print_elf_header_info(Elf32_Ehdr *header)
 	print_version(header);
 	print_osabi(header);
 	print_abiversion(header);
-
-
 	printf("Type:                              %d\n", header->e_type);
 	printf("Entry point address:               0x%08x\n", header->e_entry);
 }
@@ -129,7 +127,7 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s elf_filename\n", argv[0]);
+		dprintf(stderr, "Usage: %s elf_filename\n", argv[0]);
 		exit(98);
 	}
 
@@ -137,7 +135,7 @@ int main(int argc, char *argv[])
 
 	if (fd == -1)
 	{
-		fprintf(stderr, "Error opening file: %s\n", argv[1]);
+		dprintf(stderr, "Error opening file: %s\n", argv[1]);
 		exit(98);
 	}
 
@@ -147,13 +145,13 @@ int main(int argc, char *argv[])
 
 	if (num_read != sizeof(Elf32_Ehdr))
 	{
-		fprintf(stderr, "Error reading ELF header from file: %s\n", argv[1]);
+		dprintf(stderr, "Error reading ELF header from file: %s\n", argv[1]);
 		close(fd);
 		exit(98);
 	}
 	if (memcmp(header.e_ident, ELFMAG, SELFMAG) != 0)
 	{
-		fprintf(stderr, "Error: Not an ELF file: %s\n", argv[1]);
+		dprintf(stderr, "Error: Not an ELF file: %s\n", argv[1]);
 		close(fd);
 		exit(98);
 	}
