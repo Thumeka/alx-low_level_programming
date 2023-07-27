@@ -12,37 +12,39 @@
 */
 void addr(char *ptr)
 {
-int i;
-int begin;
-char sys;
-printf(" Entry point address: 0x");
-sys = ptr[4] + '0';
-if (sys == '1')
-{
-begin = 26;
-printf("80");
-for (i = begin; i >= 22; i--)
-{
-if (ptr[i] > 0)
-printf("%x", ptr[i]);
-else if (ptr[i] < 0)
-printf("%x", 256 + ptr[i]);
-}
-if (ptr[7] == 6)
-printf("00");
-}
-if (sys == '2')
-{
-begin = 26;
-for (i = begin; i > 23; i--)
-{
-if (ptr[i] >= 0)
-printf("%02x", ptr[i]);
-else if (ptr[i] < 0)
-printf("%02x", 256 + ptr[i]);
-}
-}
-printf("\n");
+	int i;
+	int begin;
+	char sys;
+
+	printf("  Entry point address:               0x");
+	sys = ptr[4] + '0';
+
+	if (sys == '1')
+	{
+		begin = 26;
+		printf("80");
+		for (i = begin; i >= 22; i--)
+		{
+			if (ptr[i] > 0)
+				printf("%x", ptr[i]);
+			else if (ptr[i] < 0)
+				printf("%x", 256 + ptr[i]);
+		}
+		if (ptr[7] == 6)
+			printf("00");
+	}
+	if (sys == '2')
+	{
+		begin = 26;
+		for (i = begin; i > 23; i--)
+		{
+			if (ptr[i] >= 0)
+				printf("%02x", ptr[i]);
+			else if (ptr[i] < 0)
+				printf("%02x", 256 + ptr[i]);
+		}
+	}
+	printf("\n");
 }
 /**
 * type - prints type
@@ -56,7 +58,7 @@ if (ptr[5] == 1)
 type = ptr[16];
 else
 type = ptr[17];
-printf(" Type: ");
+printf("  Type:                              ");
 if (type == 0)
 printf("NONE (No file type)\n");
 else if (type == 1)
@@ -78,7 +80,7 @@ printf("<unknown: %x>\n", type);
 void osabi(char *ptr)
 {
 char osabi = ptr[7];
-printf(" OS/ABI: ");
+printf("  OS/ABI:                            ");
 if (osabi == 0)
 printf("UNIX - System V\n");
 else if (osabi == 2)
@@ -97,7 +99,7 @@ printf(" ABI Version: %d\n", ptr[8]);
 void version(char *ptr)
 {
 int version = ptr[6];
-printf(" Version: %d", version);
+printf("  Version:                           %d", version);
 if (version == EV_CURRENT)
 printf(" (current)");
 printf("\n");
@@ -110,7 +112,7 @@ printf("\n");
 void data(char *ptr)
 {
 char data = ptr[5];
-printf(" Data: 2's complement");
+printf("  Data:                              2's complement");
 if (data == 1)
 printf(", little endian\n");
 if (data == 2)
@@ -124,7 +126,7 @@ printf(", big endian\n");
 void magic(char *ptr)
 {
 int bytes;
-printf(" Magic: ");
+printf("  Magic:  ");
 for (bytes = 0; bytes < 16; bytes++)
 printf(" %02x", ptr[bytes]);
 printf("\n");
@@ -142,9 +144,9 @@ exit(98);
 printf("ELF Header:\n");
 magic(ptr);
 if (sys == '1')
-printf(" Class: ELF32\n");
+printf("  Class:                             ELF32\n");
 if (sys == '2')
-printf(" Class: ELF64\n");
+printf("  Class:                             ELF64\n");
 data(ptr);
 version(ptr);
 osabi(ptr);
