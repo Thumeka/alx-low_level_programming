@@ -53,7 +53,7 @@ void print_data(char *e)
 void print_version(char *e)
 {
 	int print_version = e[6];
-	
+
 	printf(" Version: %d", print_version);
 	if (print_version == EV_CURRENT)
 		printf(" (current)");
@@ -185,6 +185,7 @@ int check_elf(char *e)
 	char E = e[1];
 	char L = e[2];
 	char F = e[3];
+
 	if (print_entry == 127 && E == 'E' && L == 'L' && F == 'F')
 		return (1);
 	return (0);
@@ -203,7 +204,7 @@ int main(int argc, char *argv[])
 {
 	int fd, r_read;
 	char p[27];
-	
+
 	if (argc != 2)
 	{
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
