@@ -24,7 +24,7 @@ void print_entry(char *e);
 void print_magic(char *e)
 {
 	int index;
-`
+
 	printf(" Magic: ");
 	for (index = 0; index < 16; index++)
 		printf(" %02x", e[index]);
@@ -36,14 +36,15 @@ void print_magic(char *e)
 */
 void print_data(char *e)
 {
-char print_data = e[5];
-printf(" Data: 2's complement");
-if (print_data == 1)
-printf(", little endian\n");
-else if (print_data == 2)
-printf(", big endian\n");
-else
-printf("\n");
+	char print_data = e[5];
+
+	printf(" Data: 2's complement");
+	if (print_data == 1)
+		printf(", little endian\n");
+	else if (print_data == 2)
+		printf(", big endian\n");
+	else
+		printf("\n");
 }
 /**
 * print_version - Prints the version
@@ -51,11 +52,12 @@ printf("\n");
 */
 void print_version(char *e)
 {
-int print_version = e[6];
-printf(" Version: %d", print_version);
-if (print_version == EV_CURRENT)
-printf(" (current)");
-printf("\n");
+	int print_version = e[6];
+	
+	printf(" Version: %d", print_version);
+	if (print_version == EV_CURRENT)
+		printf(" (current)");
+	printf("\n");
 }
 /**
 * print_osabi - Prints the OS/ABI
@@ -63,17 +65,18 @@ printf("\n");
 */
 void print_osabi(char *e)
 {
-char print_osabi = e[7];
-printf(" OS/ABI: ");
-if (print_osabi == 0)
-printf("UNIX - System V\n");
-else if (print_osabi == 2)
-printf("UNIX - NetBSD\n");
-else if (print_osabi == 6)
-printf("UNIX - Solaris\n");
-else
-printf("<unknown; %x>\n", print_osabi);
-printf(" ABI Version: %d\n", e[8]);
+	char print_osabi = e[7];
+
+	printf(" OS/ABI: ");
+	if (print_osabi == 0)
+		printf("UNIX - System V\n");
+	else if (print_osabi == 2)
+		printf("UNIX - NetBSD\n");
+	else if (print_osabi == 6)
+		printf("UNIX - Solaris\n");
+	else
+		printf("<unknown; %x>\n", print_osabi);
+	printf(" ABI Version: %d\n", e[8]);
 }
 /**
 * print_type - Prints the type
@@ -81,24 +84,25 @@ printf(" ABI Version: %d\n", e[8]);
 */
 void print_type(char *e)
 {
-char print_type;
-if (e[5] == 1)
-print_type = e[16];
-else
-print_type = e[17];
-printf(" Type: ");
-if (print_type == 0)
-printf("NONE (No file type)\n");
-else if (print_type == 1)
-printf("REL (Relocatable file)\n");
-else if (print_type == 2)
-printf("EXEC (Executable file)\n");
-else if (print_type == 3)
-printf("DYN (Shared object file)\n");
-else if (print_type == 4)
-printf("CORE (Core file)\n");
-else
-printf("<unknown: %x>\n", print_type);
+	char print_type;
+
+	if (e[5] == 1)
+		print_type = e[16];
+	else
+		print_type = e[17];
+	printf(" Type: ");
+	if (print_type == 0)
+		printf("NONE (No file type)\n");
+	else if (print_type == 1)
+		printf("REL (Relocatable file)\n");
+	else if (print_type == 2)
+		printf("EXEC (Executable file)\n");
+	else if (print_type == 3)
+		printf("DYN (Shared object file)\n");
+	else if (print_type == 4)
+		printf("CORE (Core file)\n");
+	else
+		printf("<unknown: %x>\n", print_type);
 }
 /**
 * print_entry - Prints the entry point
@@ -106,37 +110,38 @@ printf("<unknown: %x>\n", print_type);
 */
 void print_entry(char *e)
 {
-int j;
-int start;
-char sys;
-printf(" Entry point address: 0x");
-sys = e[4];
-if (sys == 1)
-{
-start = 26;
-printf("80");
-for (j = start; j >= 22; j--)
-{
-if (e[j] > 0)
-printf("%x", e[j]);
-else if (e[j] < 0)
-printf("%x", 256 + e[j]);
-}
-if (e[7] == 6)
-printf("00");
-}
-if (sys == 2)
-{
-start = 26;
-for (j = start; j > 23; j--)
-{
-if (e[j] >= 0)
-printf("%02x", e[j]);
-else if (e[j] < 0)
-printf("%02x", 256 + e[j]);
-}
-}
-printf("\n");
+	int j;
+	int start;
+	char sys;
+
+	printf(" Entry point address: 0x");
+	sys = e[4];
+	if (sys == 1)
+	{
+		start = 26;
+		printf("80");
+		for (j = start; j >= 22; j--)
+		{
+			if (e[j] > 0)
+				printf("%x", e[j]);
+			else if (e[j] < 0)
+				printf("%x", 256 + e[j]);
+		}
+		if (e[7] == 6)
+			printf("00");
+	}
+	if (sys == 2)
+	{
+		start = 26;
+		for (j = start; j > 23; j--)
+		{
+			if (e[j] >= 0)
+				printf("%02x", e[j]);
+			else if (e[j] < 0)
+				printf("%02x", 256 + e[j]);
+		}
+	}
+	printf("\n");
 }
 /**
 * print_class - Prints the class of an ELF header.
@@ -144,28 +149,29 @@ printf("\n");
 */
 void print_class(char *e)
 {
-char print_class = e[4];
-if (print_class == 0)
-{
-fprintf(stderr, "Error: Not an ELF file\n");
-exit(98);
-}
-printf("ELF Header:\n");
-print_magic(e);
-if (print_class == 1)
-printf(" Class: ELF32\n");
-else if (print_class == 2)
-printf(" Class: ELF64\n");
-else
-{
-fprintf(stderr, "Error: Not an ELF file\n");
-exit(98);
-}
-print_data(e);
-print_version(e);
-print_osabi(e);
-print_type(e);
-print_entry(e);
+	char print_class = e[4];
+
+	if (print_class == 0)
+	{
+		fprintf(stderr, "Error: Not an ELF file\n");
+		exit(98);
+	}
+	printf("ELF Header:\n");
+	print_magic(e);
+	if (print_class == 1)
+		printf(" Class: ELF32\n");
+	else if (print_class == 2)
+		printf(" Class: ELF64\n");
+	else
+	{
+		fprintf(stderr, "Error: Not an ELF file\n");
+		exit(98);
+	}
+	print_data(e);
+	print_version(e);
+	print_osabi(e);
+	print_type(e);
+	print_entry(e);
 }
 /**
 * check_elf - Checks if elf file
@@ -175,13 +181,13 @@ print_entry(e);
 */
 int check_elf(char *e)
 {
-int print_entry = (int)e[0];
-char E = e[1];
-char L = e[2];
-char F = e[3];
-if (print_entry == 127 && E == 'E' && L == 'L' && F == 'F')
-return (1);
-return (0);
+	int print_entry = (int)e[0];
+	char E = e[1];
+	char L = e[2];
+	char F = e[3];
+	if (print_entry == 127 && E == 'E' && L == 'L' && F == 'F')
+		return (1);
+	return (0);
 }
 /**
 * main - Displays the information contained
@@ -195,32 +201,33 @@ return (0);
 */
 int main(int argc, char *argv[])
 {
-int fd, r_read;
-char p[27];
-if (argc != 2)
-{
-dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
-exit(98);
-}
-fd = open(argv[1], O_RDONLY);
-if (fd < 0)
-{
-dprintf(STDERR_FILENO, "Err: file can not be open\n");
-exit(98);
-}
-lseek(fd, 0, SEEK_SET);
-r_read = read(fd, p, 27);
-if (r_read == -1)
-{
-dprintf(STDERR_FILENO, "Err: The file can not be read\n");
-exit(98);
-}
-if (!check_elf(p))
-{
-dprintf(STDERR_FILENO, "Err: It is not an ELF\n");
-exit(98);
-}
-print_class(p);
-close(fd);
-return (0);
+	int fd, r_read;
+	char p[27];
+	
+	if (argc != 2)
+	{
+		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
+		exit(98);
+	}
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		dprintf(STDERR_FILENO, "Err: file can not be open\n");
+		exit(98);
+	}
+	lseek(fd, 0, SEEK_SET);
+	r_read = read(fd, p, 27);
+	if (r_read == -1)
+	{
+		dprintf(STDERR_FILENO, "Err: The file can not be read\n");
+		exit(98);
+	}
+	if (!check_elf(p))
+	{
+		dprintf(STDERR_FILENO, "Err: It is not an ELF\n");
+		exit(98);
+	}
+	print_class(p);
+	close(fd);
+	return (0);
 }
