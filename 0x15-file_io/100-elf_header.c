@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "main.h"
 #include <elf.h>
 
 int check_elf(char *e);
